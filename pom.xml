@@ -38,7 +38,7 @@
         <cassandra-driver-core.version>2.0.1</cassandra-driver-core.version>
         <lz4.version>1.2.0</lz4.version>
 
-      <!-- test deps versions -->
+        <!-- test deps versions -->
         <junit.version>4.11</junit.version>
         <mockito.version>1.9.5</mockito.version>
         <specs2.version>2.2.2</specs2.version>
@@ -143,7 +143,7 @@
             <artifactId>joda-convert</artifactId>
             <version>${joda-convert.version}</version>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>net.sf.jgrapht</groupId>
             <artifactId>jgrapht</artifactId>
             <version>${jgrapht.version}</version>
@@ -163,17 +163,17 @@
             <artifactId>metrics-ganglia</artifactId>
             <version>${metrics.version}</version>
         </dependency>
-      <dependency>
-        <groupId>com.datastax.cassandra</groupId>
-        <artifactId>cassandra-driver-core</artifactId>
-        <version>${cassandra-driver-core.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>net.jpountz.lz4</groupId>
-        <artifactId>lz4</artifactId>
-        <version>${lz4.version}</version>
-      </dependency>
-      <dependency>
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-core</artifactId>
+            <version>${cassandra-driver-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.jpountz.lz4</groupId>
+            <artifactId>lz4</artifactId>
+            <version>${lz4.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-actor_2.10</artifactId>
             <version>${akka.version}</version>
@@ -186,9 +186,9 @@
         </dependency>
 
         <dependency>
-          <groupId>net.kencochrane.raven</groupId>
-          <artifactId>raven-getsentry</artifactId>
-          <version>${raven.version}</version>
+            <groupId>net.kencochrane.raven</groupId>
+            <artifactId>raven-getsentry</artifactId>
+            <version>${raven.version}</version>
         </dependency>
 
         <dependency>
@@ -380,12 +380,12 @@
                 </configuration>
             </plugin>
             <!-- TODO(FL): use this plugin to run a local version directly from maven <plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>exec-maven-plugin</artifactId>-->
-                <!--<version>1.2.1</version>-->
-                <!--<configuration>-->
-                    <!--<mainClass>${mainClass}</mainClass>-->
-                <!--</configuration>-->
+            <!--<groupId>org.codehaus.mojo</groupId>-->
+            <!--<artifactId>exec-maven-plugin</artifactId>-->
+            <!--<version>1.2.1</version>-->
+            <!--<configuration>-->
+            <!--<mainClass>${mainClass}</mainClass>-->
+            <!--</configuration>-->
             <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

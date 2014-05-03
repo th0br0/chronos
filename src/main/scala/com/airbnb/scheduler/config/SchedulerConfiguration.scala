@@ -131,6 +131,14 @@ trait SchedulerConfiguration extends ScallopConf {
     descr = "The default epsilon value for tasks, in seconds",
     default = Some(60))
 
+  lazy val persistTo = opt[String]("persist_to",
+    descr = "The storage backend to persist to. Must either be 'cassandra' or 'zookeeper'",
+    default = Some("zookeeper"))
+
+  lazy val storeStats = opt[Boolean]("stats",
+    descr = "Store job statistics in Cassandra.",
+    default = Some(false))
+
   // Chronos version
   lazy val version =
     Option(classOf[SchedulerConfiguration].getPackage.getImplementationVersion).getOrElse("unknown")

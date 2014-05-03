@@ -11,11 +11,11 @@ import com.twitter.common.zookeeper.{ZooKeeperUtils, ZooKeeperClient}
 import org.apache.mesos.state.{InMemoryState, State}
 
 /**
- * Handles storage and retrieval of job and task level data within the cluster.
+ * Handles storage and retrieval of job and task level data within the cluster via ZooKeeper.
  * @author Florian Leibert (flo@leibert.de)
  */
 
-class MesosStatePersistenceStore @Inject()(val zk: ZooKeeperClient,
+class MesosStateZooKeeperPersistenceStore @Inject()(val zk: ZooKeeperClient,
                                             val config: SchedulerConfiguration,
                                             val state: State = new InMemoryState)
   extends PersistenceStore {
@@ -140,6 +140,7 @@ class MesosStatePersistenceStore @Inject()(val zk: ZooKeeperClient,
   }
 
   private def persistData(name: String, data: Array[Byte]): Boolean = {
+    // Note: This destroys any replicated guarantees
     val existingVar = state.fetch(name).get
 
     if (existingVar.value.size == 0) {

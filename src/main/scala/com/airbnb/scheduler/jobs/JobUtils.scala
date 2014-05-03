@@ -35,18 +35,25 @@ object JobUtils {
     objectMapper.writeValueAsString(job).getBytes(Charsets.UTF_8)
 
   def fromBytes(data: Array[Byte]): BaseJob = {
+    val strData = new String(data, Charsets.UTF_8)
+    fromString(strData)
+  }
+
+  def toString[T <: BaseJob](job: T): String =
+    objectMapper.writeValueAsString(job)
+
+  def fromString(str: String): BaseJob = {
     //TODO(FL): Fix this, as it is very inefficient since we're parsing twice.
     //          Link to article, doing this by creating a deserializer handling polymorphism nicer (but more code):
     //          http://programmerbruce.blogspot.com.es/2011/05/deserialize-json-with-jackson-into.html
-    val strData = new String(data, Charsets.UTF_8)
-    val map = objectMapper.readValue(strData, classOf[java.util.Map[String, _]])
+    val map = objectMapper.readValue(str, classOf[java.util.Map[String, _]])
 
     if (map.containsKey("parents"))
-      return objectMapper.readValue(strData, classOf[DependencyBasedJob])
+      return objectMapper.readValue(str, classOf[DependencyBasedJob])
     else if (map.containsKey("schedule"))
-      return objectMapper.readValue(strData, classOf[ScheduleBasedJob])
+      return objectMapper.readValue(str, classOf[ScheduleBasedJob])
     else
-      return objectMapper.readValue(strData, classOf[BaseJob])
+      return objectMapper.readValue(str, classOf[BaseJob])
   }
 
   def isValidJobName(jobName: String): Boolean = {

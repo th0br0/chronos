@@ -12,16 +12,27 @@ trait CassandraConfiguration extends ScallopConf {
     descr = "Port for Cassandra",
     default = Some(9042))
 
-  lazy val cassandraKeyspace = opt[String]("cassandra_keyspace",
-    descr = "Keyspace to use for Cassandra",
+  lazy val cassandraStatsKeyspace = opt[String]("cassandra_stats_keyspace",
+    descr = "Keyspace to use for stats persisted to Cassandra",
     default = Some("metrics"))
 
-  lazy val cassandraTable = opt[String]("cassandra_table",
-    descr = "Table to use for Cassandra",
+  lazy val cassandraDataKeyspace = opt[String]("cassandra_data_keyspace",
+    descr = "Keyspace to use for data persisted to Cassandra",
     default = Some("chronos"))
 
+  lazy val cassandraStatsTable = opt[String]("cassandra_stats_table",
+    descr = "Table to use for stats persisted to Cassandra",
+    default = Some("stats"))
+
+  lazy val cassandraTasksTable = opt[String]("cassandra_tasks_table",
+    descr = "Table to use for tasks persisted to Cassandra",
+    default = Some("tasks"))
+  lazy val cassandraJobsTable = opt[String]("cassandra_jobs_table",
+    descr = "Table to use for jobs persisted to Cassandra",
+    default = Some("jobs"))
+
   lazy val cassandraConsistency = opt[String]("cassandra_consistency",
-    descr = "Consistency to use for Cassandra",
+    descr = "Consistency to use for Cassandra writes",
     default = Some("ANY"))
 
   lazy val cassandraTtl = opt[Int]("cassandra_ttl",

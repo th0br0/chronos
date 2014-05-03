@@ -13,10 +13,10 @@ import org.specs2.mock._
 class PersistenceStoreSpec extends SpecificationWithJUnit with Mockito
 {
 
-  "MesosStatePersistenceStore" should {
+  "MesosStateZooKeeperPersistenceStore" should {
 
     "Writing and reading a job works" in {
-      val store = new MesosStatePersistenceStore(null, null)
+      val store = new MesosStateZooKeeperPersistenceStore(null, null)
       val startTime = "R1/2012-01-01T00:00:01.000Z/PT1M"
       val job = new ScheduleBasedJob(schedule = startTime, name = "sample-name", command = "sample-command",
                                      epsilon = Hours.hours(1).toPeriod, successCount = 1L, executor = "fooexecutor", executorFlags = "args")

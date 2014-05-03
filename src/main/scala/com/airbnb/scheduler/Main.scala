@@ -26,10 +26,11 @@ object Main extends App {
       new HttpModule(conf),
       new ChronosRestModule,
       new MetricsModule,
-      new MainModule(conf),
+      new CassandraModule(conf),
       new ZookeeperModule(conf),
-      new JobMetricsModule(conf),
-      new JobStatsModule(conf)
+      new PersistenceModule(conf),
+      new MainModule(conf),
+      new JobMetricsModule(conf)
     )
   }
 

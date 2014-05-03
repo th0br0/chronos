@@ -44,6 +44,12 @@ trait PersistenceStore {
   def getJob(name: String): BaseJob
 
   /**
+   * Loads all jobs from the underlying store
+   * @return
+   */
+  def getJobs: Iterator[BaseJob]
+
+  /**
    * Purges all tasks from the underlying store
    */
   def purgeTasks()
@@ -60,10 +66,4 @@ trait PersistenceStore {
    * @return
    */
   def getTasks: Map[String, Array[Byte]]
-
-  /**
-   * Returns all jobs from the underlying store
-   * @return
-   */
-  def getJobs: Iterator[BaseJob]
 }

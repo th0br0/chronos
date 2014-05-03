@@ -6,7 +6,7 @@ import com.datastax.driver.core.policies.{RoundRobinPolicy, LatencyAwarePolicy, 
 import com.datastax.driver.core.ProtocolOptions.Compression
 import com.datastax.driver.core.Cluster
 
-class JobStatsModule (config: CassandraConfiguration) extends AbstractModule {
+class CassandraModule(config: CassandraConfiguration) extends AbstractModule {
   def configure() {
     bind(classOf[JobStats]).in(Scopes.SINGLETON)
   }
@@ -18,20 +18,15 @@ class JobStatsModule (config: CassandraConfiguration) extends AbstractModule {
       case Some(contactPoints) =>
         Some(
           Cluster.builder()
-              .addContactPoints(contactPoints.split(","): _*)
-              .withPort(config.cassandraPort())
-              .withCompression(Compression.LZ4)
-              .withRetryPolicy(DowngradingConsistencyRetryPolicy.INSTANCE)
-              .withLoadBalancingPolicy(LatencyAwarePolicy.builder(new RoundRobinPolicy).build)
+            .addContactPoints(contactPoints.split(","): _*)
+            .withPort(config.cassandraPort())
+            .withCompression(Compression.LZ4)
+            .withRetryPolicy(DowngradingConsistencyRetryPolicy.INSTANCE)
+            .withLoadBalancingPolicy(LatencyAwarePolicy.builder(new RoundRobinPolicy).build)
         )
       case _ =>
         None
     }
   }
 
-  @Provides
-  @Singleton
-  def provideConfig() = {
-    config
-  }
 }

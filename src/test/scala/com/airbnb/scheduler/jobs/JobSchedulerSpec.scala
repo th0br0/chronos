@@ -1,7 +1,7 @@
 package com.airbnb.scheduler.jobs
 
 import com.airbnb.scheduler.graph.JobGraph
-import com.airbnb.scheduler.state.{MesosStatePersistenceStore, PersistenceStore}
+import com.airbnb.scheduler.state.{MesosStateZooKeeperPersistenceStore, PersistenceStore}
 import org.joda.time._
 import org.specs2.mock._
 import org.specs2.mutable._

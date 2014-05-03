@@ -4,16 +4,15 @@ import java.net.InetSocketAddress
 import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
 
-import com.airbnb.scheduler.state.{PersistenceStore, MesosStatePersistenceStore}
+import com.airbnb.scheduler.state.{PersistenceStore, MesosStateZooKeeperPersistenceStore}
 import com.google.inject._
-import com.twitter.common.base.Supplier
-import com.twitter.common.quantity.Amount
-import com.twitter.common.quantity.Time
+import com.twitter.common.quantity.{Time, Amount}
 import com.twitter.common.zookeeper._
 import org.apache.mesos.state.{State, ZooKeeperState}
 import org.apache.zookeeper.ZooDefs
 import mesosphere.mesos.util.FrameworkIdUtil
 import mesosphere.chaos.http.HttpConf
+import com.twitter.common.base.Supplier
 
 /**
  * Guice glue-code for zookeeper related things.
@@ -21,7 +20,7 @@ import mesosphere.chaos.http.HttpConf
  */
 //TODO(FL): Consider using Sindi or Subcut for DI.
 class ZookeeperModule(val config: SchedulerConfiguration with HttpConf)
-    extends AbstractModule {
+  extends AbstractModule {
   private val log = Logger.getLogger(getClass.getName)
 
   def configure() {}
@@ -44,17 +43,6 @@ class ZookeeperModule(val config: SchedulerConfiguration with HttpConf)
       config.zooKeeperTimeout(),
       TimeUnit.MILLISECONDS,
       config.zooKeeperStatePath)
-  }
-
-  @Inject
-  @Singleton
-  @Provides
-  def provideStore(zk: ZooKeeperClient, state: State): PersistenceStore = {
-    ZooKeeperUtils.ensurePath(zk,
-      ZooDefs.Ids.OPEN_ACL_UNSAFE,
-      config.zooKeeperStatePath)
-
-    new MesosStatePersistenceStore(zk, config, state)
   }
 
   @Provides

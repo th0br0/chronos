@@ -9,7 +9,7 @@ import com.airbnb.scheduler.jobs.{JobStats, JobMetrics, TaskManager, JobSchedule
 import com.airbnb.scheduler.graph.JobGraph
 import com.airbnb.scheduler.state.PersistenceStore
 import com.airbnb.notification.{MailClient,RavenClient}
-import com.google.inject.{Inject, Provides, Singleton, AbstractModule}
+import com.google.inject._
 import com.google.common.util.concurrent.{ListeningScheduledExecutorService, ThreadFactoryBuilder, MoreExecutors}
 import com.twitter.common.zookeeper.Candidate
 import org.apache.mesos.Protos.FrameworkInfo
@@ -37,6 +37,7 @@ class MainModule(val config: SchedulerConfiguration) extends AbstractModule {
 
     //TODO(FL): Only bind this if config.dependentJobs is turned on.
     bind(classOf[JobGraph]).asEagerSingleton()
+
   }
 
   @Inject
